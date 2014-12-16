@@ -45,7 +45,7 @@ var map = {
 	
 	$("#heb").css("position","absolute");
 
-	var svgDefs = svg.append("svg:defs")  
+	var svgDefs = svg.append("svg:defs")  ;
 
 	var line = d3.svg.line.radial()
 	    .interpolate("bundle")
@@ -57,13 +57,13 @@ var map = {
 
 	$(document).ready(function () {
 		$.getJSON( "gameData.json", function( data ) {
-			console.log(456);
+			//console.log(456);
 			processData(data);
 		});
 		
 //		Tabletop.init( { key: '0ArF9tD_naD7edHIyOEE3endKbzZmZExTdWVoT0xTTmc', callback: processData, simpleSheet: true } )
 		//initVideo();
-	})
+	});
 
 	var maxGamesToWeapons = 0,
 		maxWeaponsToGames = 0,
@@ -316,22 +316,22 @@ var map = {
 			maxGameTopics = maxTopicsToGames;
 		}
 			
-		map.children.push(gameRootNode)
-		map.children.push(weaponRootNode)
-		map.children.push(contentRootNode)
+		map.children.push(gameRootNode);
+		map.children.push(weaponRootNode);
+		map.children.push(contentRootNode);
 		
 		drawChart();
 		
-		var ratingArray = []
+		var ratingArray = [];
 		for(var k in gameRatings){
-			gameRatings[k].contentType = 'rating'
+			gameRatings[k].contentType = 'rating';
 			//ratingArray.push(gameRatings[k])
 		}
 		
-		ratingArray[0] = gameRatings ['m']
-		ratingArray[1] = gameRatings ['t']
-		ratingArray[2] = gameRatings ['e10']
-		ratingArray[3] = gameRatings ['e']
+		ratingArray[0] = gameRatings ['m'];
+		ratingArray[1] = gameRatings ['t'];
+		ratingArray[2] = gameRatings ['e10'];
+		ratingArray[3] = gameRatings ['e'];
 		
 		
 		drawSmallChart('chart-game-ratings', ratingArray, 'left', 120);
@@ -350,7 +350,7 @@ var map = {
 				data: gamesWithoutGuns
 			},
 		
-		]
+		];
 		drawSmallChart('chart-game-weapons', gameGunsArray, 'left', 60);
 		
 		var gameViolenceArray = [
@@ -367,7 +367,7 @@ var map = {
 				data: gamesWithoutViolence
 			},
 		
-		]
+		];
 		drawSmallChart('chart-game-violence', gameViolenceArray, 'left', 60);
 
 		$('.gia-button').click(function(e){
@@ -376,32 +376,32 @@ var map = {
 
 			if($(this).hasClass('gia-button-selected') == false){	
 				currentSelectionText = $(this).text();
-				$(this).text('Show all games')	
+				$(this).text('Show all games');
 				currentSelectionBtn = this;
 							
 				if($(this).attr('id') == 'btn-guns'){
-					showBarConnections( gameGunsArray['0'])
+					showBarConnections( gameGunsArray['0']);
 				} else if($(this).attr('id') == 'btn-violence'){
-					showBarConnections( gameViolenceArray['0'])
+					showBarConnections( gameViolenceArray['0']);
 				} else if($(this).attr('id') == 'btn-audience'){
-					showBarConnections( ratingArray[0])
+					showBarConnections( ratingArray[0]);
 				}
 				
 				
 				
 			} else {
-				hideBarConnections(currentSelection )
+				hideBarConnections(currentSelection );
 			}
 			
 			
 			
-		})
+		});
 
 
 		
 	}
 
-	var smallVis = {}
+	var smallVis = {};
 
 	function drawSmallChart(location, data, align, height){
 	        
@@ -409,8 +409,8 @@ var map = {
 	                w = 200,
 	                barH = 25;
 	        
-	        var startX = 0
-	        var startY = 1
+	        var startX = 0;
+	        var startY = 1;
 
 	        
 	        
@@ -418,9 +418,9 @@ var map = {
 	                .attr({
 	                        'height': h + 'px',
 	                        'width': w + 'px'
-	                })
+	                });
 	        
-	        w = 150
+	        w = 150;
 	        
 
 	        var bars = vis.selectAll(".bar")  
@@ -429,7 +429,8 @@ var map = {
 	                        .append('g')
 	                        .attr('class', 'bar-group')
 	                        .attr('id', function(d){
-	                                return 'bargroup-' + d.name.toLowerCase().replace(' ', '')
+	                        	if(d)return 'bargroup-' + d.name.toLowerCase().replace(' ', '');
+	                                
 	                        })
 	                        
 	                        bars.append('rect')
@@ -442,24 +443,24 @@ var map = {
 	                        })
 	                        .attr("y", function (d,i){
 	                        
-	                                return startY + (barH + 1) * i 
+	                                return startY + (barH + 1) * i ;
 	                        })
 	                        .attr("width", function(d){
-	                                return barW(d.total)
+	                                if(d)return barW(d.total);
 	                        })
 	                        .attr("height", barH)
 	                        .attr('id', function(d){
-	                                return 'bar-' + d.name.toLowerCase().replace(' ', '')
+	                        	if(d)return 'bar-' + d.name.toLowerCase().replace(' ', '');
 	                        })
 	                        .attr('class', 'bar')
 	                        .style('fill', function(d){
 	                                
-	                                if(d.contentType == 'rating'){
-	                                        return '#5265AE'
-	                                } else if(d.contentType == 'guns'){
-	                                        return '#CC2F27'
-	                                } else if(d.contentType == 'violence'){
-	                                        return '#5E843A'
+	                                if(d&&d.contentType == 'rating'){
+	                                        return '#5265AE';
+	                                } else if(d&&d.contentType == 'guns'){
+	                                        return '#CC2F27';
+	                                } else if(d&&d.contentType == 'violence'){
+	                                        return '#5E843A';
 	                                }
 	                        
 	                                
@@ -482,10 +483,11 @@ var map = {
 	                        })
 	                        .attr("x", function(d,i){
 	                                        if(align == 'right'){
-	                                                return w - barW(d.total) -35
+	                                        		if(d)return w - barW(d.total) -35;
 	                                        } else {
-	                                                return barW(d.total) +35
+	                                                if(d)return barW(d.total) +35;
 	                                        }
+	                                        return 35;
 	                        })
 	                        .attr("text-anchor",function(d){
 	                                if(align == 'right'){
@@ -498,7 +500,7 @@ var map = {
 	                        .text(function(d) { 
 	                                var text = '';
 
-	                                if(d.contentType == 'rating'){
+	                                if(d&&d.contentType == 'rating'){
 	                                        
 	                                        if(d.name == 'e'){
 	                                                text = 'Everyone (E)'
@@ -509,7 +511,7 @@ var map = {
 	                                        } else if(d.name == 'm'){
 	                                                text = 'Ages 17+ (M)'
 	                                        }
-	                                } else if(d.contentType == 'guns' || d.contentType == 'violence'){
+	                                } else if(d&&(d.contentType == 'guns' || d.contentType == 'violence')){
 	                                        text = d.name
 	                                }
 	                                return text; 
@@ -540,7 +542,8 @@ var map = {
 
 	                        })
 	                        .text(function(d) { 
-	                                var text = Math.round(d.total/totalGames * 100).toFixed(0) + '%'
+	                        	if(!d) return '100%';
+	                                var text = Math.round(d.total/totalGames * 100).toFixed(0) + '%';
 	                                return text; 
 	                        
 	                        });
@@ -573,7 +576,7 @@ var map = {
 		} else if (val == 4){
 			color = '#666'
 		}
-		return color
+		return color;
 	}
 
 
@@ -612,10 +615,10 @@ var map = {
 		
 	      //.attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
 		  .style('fill', function(d){
-			 	return getColor(d.nodeType, d.size)
+			 	return getColor(d.nodeType, d.size);
 	   	   })
 		  .on("mouseover", showConnections)
-	      .on("mouseout", hideConnections)
+	      .on("mouseout", hideConnections);
 		
 		svg.selectAll(".node")
 	      .data(nodes.filter(function(n) { return n.depth == 2; }))
@@ -685,7 +688,10 @@ var map = {
 		    				.domain([0,maxGameTopics])
 		    				.range([0,1]);
 			
-		var mergedLinks = gwlinks.concat(gtlinks)
+		var mergedLinks = gwlinks.concat(gtlinks);
+		
+		arrangeNoParentsData(mergedLinks);
+		
 		
 		svg.selectAll(".links")
 			.data(bundle(mergedLinks))
@@ -985,9 +991,10 @@ var map = {
 			}).appendTo( "#node-info" );		
 		} else if( d.nodeType == 'topic'){
 			$("#weaponTopicTemplate").tmpl( {
-				name: (d.name.toLowerCase().search('use') >= 0)? 'the ' + d.name.toLowerCase() : d.name.toLowerCase(),
+				//name: (d.name.toLowerCase().search('use') >= 0)? 'the ' + d.name.toLowerCase() : d.name.toLowerCase(),
+				name: (d.name.toLowerCase().search('use') >= 0)? 'the ' + d.name : d.name,
 				color: getColor(d.nodeType, d.size),
-				count: (d.numGames > 1) ? addCommas(d.numGames)	+ ' games have': addCommas(d.numGames)	+ ' game has' 	
+				count: (d.numGames > 1) ? addCommas(d.numGames)	+ ' callers have': addCommas(d.numGames)	+ ' caller has' 	
 			}).appendTo( "#node-info" );		
 		}
 		$("#node-info").show()
@@ -1118,4 +1125,14 @@ var map = {
 		return x1 + x2;
 	}
 
+	function arrangeNoParentsData(mergedLinks){
+		for (var i = 0; i < mergedLinks.length; i++) {
+			var row=mergedLinks[i];
+			if(row.source.parent==null){
+				console.log("index..."+i);
+				mergedLinks.splice(i , 1);
+				arrangeNoParentsData(mergedLinks);
+			}
+		}
+	}
 

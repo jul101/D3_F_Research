@@ -3,15 +3,18 @@
 <head>
 <meta charset="BIG5">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="http://pasteup.guim.co.uk/0.0.3/css/pasteup.min.css">
 <link rel="stylesheet" type="text/css" href="main.css">
 </head>
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="jquery.tmpl.min.js"></script>
+<script src="http://pasteup.guim.co.uk/js/lib/jquery/1.8.1/jquery.min.js"></script>
+<script src="D3.js" charset="utf-8"></script>
+<script src="jquery.tmpl.min.js" charset="utf-8"></script>
+
+
 <script id="gameTemplate" type="text/x-jquery-tmpl"> 
 		<div id='node-name'>${name}</div>
 		<div class='node-topic' id='node-game-sales'>	
-			<div class='node-label'>Units sold</div>
+			<div class='node-label'>Called Times</div>
 			<div class='node-data-color' style='background-color: ${color};'></div>
 			<div class='node-data-short'>${sales}</div>
 		</div>
@@ -20,11 +23,11 @@
 			<div class='node-data'>${rating}</div>
 		</div>
 		<div class='node-topic' id='node-weapon-references'>	
-			<div class='node-label'>Weapons</div>
+			<div class='node-label'>Methods</div>
 			<div class='node-data'></div>
 		</div>
 		<div class='node-topic' id='node-topic-references'>	
-			<div class='node-label'>Content</div>
+			<div class='node-label'>Caller</div>
 			<div class='node-data'>${content}</div>
 		</div>
 	</script>
@@ -51,14 +54,14 @@
 	<script id="weaponTopicTemplate" type="text/x-jquery-tmpl"> 
 		<div class='node-topic-tags' id='node-tags'>	
 			<div class='node-data-color' style='background-color: ${color};'></div>
-			<div class='node-data-wide'>${count} content that includes ${name}</div>
+			<div class='node-data-wide'>${count} called ${name}</div>
 		</div>
 	</script>
 	
 	<script id="weaponTemplate" type="text/x-jquery-tmpl"> 
 		<div class='node-topic-tags' id='node-tags'>	
 			<div class='node-data-color' style='background-color: ${color};'></div>
-			<div class='node-data-wide'>${count} games use ${name}</div>
+			<div class='node-data-wide'>${count} Provider use <font style='font-weight:bolder'>${name}</font></div>
 		</div>
 	</script>
 	
@@ -120,7 +123,7 @@
 </body>
 
 <script type="text/javascript" src="helloGame.js"></script>
-<script type="text/javascript" src="Tabletop.js"></script>
+<!-- <script type="text/javascript" src="Tabletop.js"></script> -->
 </html>
 
 
